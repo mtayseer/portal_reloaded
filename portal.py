@@ -28,7 +28,7 @@ def render_page(path=''):
     content = render_template_string(content)
 
     markdown = Markdown(
-        extensions=['meta', 'toc', 'tables', 'fenced_code']
+        extensions=['meta', 'tables', 'fenced_code']
     )
 
     html_content = markdown.convert(content)
@@ -38,6 +38,10 @@ def render_page(path=''):
     template = meta.get('template', 'page.html')
 
     return render_template(template, content=html_content, **meta)
+
+# Add macro
+from macros import youtube
+app.jinja_env.globals['youtube'] = youtube.macro
 
 app.debug = True
 app.run()
